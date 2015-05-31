@@ -1,7 +1,7 @@
 atromio is an abbreviation of "ATROnah's Money is In Order".
-It is program for accounting of budget: receipts and expenditure, borrowing, expired dates of goods, billings, price developments, exchange rates.
-Idea came about 2013.
-Design started in around the beginning of 2015.
+It is program for budget accounting: receipts and expenditure, borrowing, expired dates of goods, billings, price developments, exchange rates.
+The idea came in about 2013.
+Design in around the beginning of 2015.
 Implementation started in May 2015.
 In parallel with development I plan to study\explore\try new (for me) technologies: git + github, PostgreSQL, QML, deploy tools, image processing (for scan barcodes by webcam and recognitions order items) and may be something else (I hope).
 
