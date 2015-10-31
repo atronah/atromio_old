@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    
+    <changeSet id="createPerson" author="atronah">
+        <createTable tableName="Person" remarks="info about some persons">
+            <column name="id" type="INTEGER" autoIncrement="true" remarks="person's identifier">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="shortName" type="VARCHAR(32)" remarks="short person's name">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fullName" type="VARCHAR(255)" defaultValue="" remarks="full person's name">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="SMALLINT" defaultValue="0" 
+                    remarks="person's type (0 - natural person, 1 - legal person">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

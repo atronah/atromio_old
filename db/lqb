@@ -1,0 +1,24 @@
+#!/bin/sh
+
+dbName=./$1
+shift 1
+
+logLevel=info
+changelog="./changelog/dev-changelog.xml"
+
+while [[ $# -gt 1 ]]
+    do
+        case $1 in
+            "-l") logLevel=$2 && shift 2;;
+            "-c") changelog=$2 && shift 2;;
+            *) break;;
+        esac
+    done
+
+if [ -f "$dbName" ] 
+    then liquibase --classpath=/usr/share/java/liquibase/sqlite-jdbc-3.8.11.2.jar --driver=org.sqlite.JDBC --url="jdbc:sqlite:$dbName" --logLevel=$logLevel --changeLogFile=$changelog $@
+else echo no file $dbName
+fi
+
+
+

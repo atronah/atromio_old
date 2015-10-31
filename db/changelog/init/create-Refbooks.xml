@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    
+    <changeSet id="createRefbooks" author="atronah">
+        <createTable tableName="Unit" remarks="units for counting (kg, cm, pices and etc)">
+            <column name="id" type="INTEGER" autoIncrement="true" remarks="identifier of unit">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="designation" type="VARCHAR(8)" remarks="reduced name of unit">
+                <constraints nullable="false" />
+            </column>
+            <column name="name" type="VARCHAR(64)" remarks="name">
+                <constraints nullable="false" />
+            </column>
+            <column name="description" type="VARCHAR(255)" remarks="description of unit">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="Currency" remarks="money representation">
+            <column name="id" type="INTEGER" autoIncrement="true" remarks="identifier of currency">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="code" type="VARCHAR(3)" remarks="code by ISO 4217">
+                <constraints unique="true" nullable="false" />
+            </column>
+            <column name="idx" type="SMALLINT" defaultValue="0" remarks="sort index for currencies">
+                <constraints nullable="false" />
+            </column>
+            <column name="name" type="VARCHAR(64)" remarks="name of currency">
+                <constraints nullable="false" />
+            </column>
+            <column name="symbol" type="VARCHAR(1)" remarks="symbol of currency">
+                <constraints unique="true" nullable="false" />
+            </column>
+            <column name="fractionSize" type="SMALLINT" defaultValue="2" remarks="size of fraction part of currency">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        
+        <createTable tableName="Category" remarks="category of goods and services">
+            <column name="id" type="INTEGER" autoIncrement="true" remarks="identifier of category">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="type" type="SMALLINT" defaultValue="0" remarks="0-goods, 1-service">
+                <constraints nullable="false" />
+            </column>
+            <column name="name" type="VARCHAR(64)" remarks="name of category">
+                <constraints nullable="false" />
+            </column>
+            <column name="parent_id" type="INTEGER" remarks="parent category {Category}">
+                <constraints nullable="true" 
+                            referencedTableName="Category"
+                            referencedColumnNames="id"
+                            foreignKeyName="fk_Category_Parent_Category" />
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

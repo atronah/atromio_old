@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    
+    <changeSet id="createUser" author="atronah">
+        <createTable tableName="User" remarks="user of system and database">
+            <column name="id" type="INTEGER" autoIncrement="true" remarks="user's identifier">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="login" type="VARCHAR(32)" remarks="authentication user's name">
+                <constraints unique="true" nullable="false" />
+            </column>
+            <column name="password" type="VARCHAR(255)" remarks="hash of user's password">
+                <constraints nullable="false" />
+            </column>
+            <column name="person_id" type="INTEGER" remarks="referred person">
+                <constraints nullable="false" 
+                            referencedTableName="Person"
+                            referencedColumnNames="id"
+                            foreignKeyName="fk_User_Person" />
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

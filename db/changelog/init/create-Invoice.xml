@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    
+    <changeSet id="createInvoice" author="atronah">
+        <createTable tableName="Invoice" remarks="invoice with details of money earn/spend">
+            <column name="id" type="INTEGER" autoIncrement="true" remarks="identifier of invoice">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="created" type="DATETIME" remarks="date and time, when invoice has been created">
+                <constraints nullable="false" />
+            </column>
+            <column name="completed" type="DATETIME" remarks="date and time, when invoice has been payed and/or completed" />
+            <column name="expired" type="DATETIME" remarks="date and time, when invoice will be expired" />
+            <column name="type" type="SMALLINT" defaultValue="0" remarks="0-goods,1-cashback,2-correction,3-transfer,4-exchange,5-debt,6-gift,7-planning,8-monitoring">
+                <constraints nullable="false" />
+            </column>
+            <column name="name" type="VARCHAR(64)" remarks="title or number of invoice">
+                <constraints nullable="false" />
+            </column>
+            <column name="amount" type="BIGINT" remarks="amount of money operation (without discounts and taxes)">
+                <constraints nullable="false" />
+            </column>
+            <column name="currency_id" type="INTEGER" remarks="invoice amount currency (null=rubles) {Currency}">
+                <constraints nullable="true" 
+                            referencedTableName="Currency"
+                            referencedColumnNames="id"
+                            foreignKeyName="fk_Invoice_Currency" />
+            </column>
+            <column name="discount" type="BIGINT" defaultValue="0" remarks="amount of discount in invoice currency">
+                <constraints nullable="false" />
+            </column>
+            <column name="tax" type="BIGINT" defaultValue="0" remarks="amount of tax in invoice currency">
+                <constraints nullable="false" />
+            </column>
+            <column name="note" type="TEXT" defaultValue="" remarks="additional info for invoice">
+                <constraints nullable="false" />
+            </column>
+            <column name="refInvoice_id" type="INTEGER" remarks="referenced invoice {Invoice}">
+                <constraints nullable="true" 
+                            referencedTableName="Invoice"
+                            referencedColumnNames="id"
+                            foreignKeyName="fk_Invoice_Invoice" />
+            </column>
+            <column name="refType" type="SMALLINT" defaultValue="0" remarks="0-refInvoice is parent, 1-is sibling">
+                <constraints nullable="false" />
+            </column>
+            <column name="supplier_id" type="INTEGER" remarks="Supplier/provider/contractor/payee {Person}">
+                <constraints nullable="true" 
+                            referencedTableName="Person"
+                            referencedColumnNames="id"
+                            foreignKeyName="fk_Invoice_Supplier_Person" />
+            </column>
+            <column name="customer_id" type="INTEGER" remarks="Customer/buyer/payer/consumer/asquirer/purchaser {Person}">
+                <constraints nullable="true" 
+                            referencedTableName="Person"
+                            referencedColumnNames="id"
+                            foreignKeyName="fk_Invoice_Customer_Person" />
+            </column>
+        </createTable>
+
+        <createTable tableName="Purchase" remarks="purchased invoice item">
+            <column name="id" type="INTEGER" autoIncrement="true" remarks="identifier of purchase">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="invoice_id" type="INTEGER" remarks="invoice {Invoice}">
+                <constraints nullable="false" 
+                            referencedTableName="Invoice"
+                            referencedColumnNames="id"
+                            foreignKeyName="fk_Purchase_Invoice" />
+            </column>
+            <column name="quantity" type="DECIMAL(15,5)" defaultValue="1.0" remarks="quantity of product in specified unit">
+                <constraints nullable="false" />
+            </column>
+            <column name="unit_id" type="INTEGER" remarks="unit for quantity (null=pieces) {Unit}">
+                <constraints nullable="true" 
+                            referencedTableName="Unit"
+                            referencedColumnNames="id"
+                            foreignKeyName="fk_Purchase_Unit" />
+            </column>
+            <column name="price" type="BIGINT" remarks="price of purchase in currency of invoice">
+                <constraints nullable="false" />
+            </column>
+            <column name="discount" type="BIGINT" defaultValue="0" remarks="amount of discount in invoice currency">
+                <constraints nullable="false" />
+            </column>
+            <column name="tax" type="BIGINT" defaultValue="0" remarks="amount of tax in invoice currency">
+                <constraints nullable="false" />
+            </column>
+            <column name="isAproximate" type="SMALLINT" defaultValue="0" remarks="0-exact price,1-aproximate price">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
