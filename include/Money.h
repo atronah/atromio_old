@@ -30,72 +30,44 @@
 **  <http://www.gnu.org/licenses/>.)
 **************************************************************************/
 /*
-  File   :
-  Created: 7/22/2015
-  Reason : for test code
+  File   : Money.h
+  Created: 7/24/2015
+  Reason : for currency types
   Product: atromio
   Author : atronah
-
 */
 
+#ifndef MONEY_H
+#define MONEY_H
 
-#include <iostream>
-
-#include <QCommandLineParser>
-#include <QtSql/QSqlDatabase>
+#include <QtGlobal>
+#include <QMap>
 #include <QSharedPointer>
-#include <QtSql/QSqlError>
-#include <QtSql/QSqlQuery>
-#include <QFileInfo>
-#include <QTextStream>
 #include <QDebug>
-#include "Money.h"
 
-namespace test{
-
-    class SimpleException{
-        const QString m_message;
-    public:
-        SimpleException(const QString &message) throw() : m_message(message) {}
-        const QString & message() const {return m_message;}
-    };
-
-    class DatabaseError{
-        QSharedPointer<QSqlError> m_dbError;
-    public:
-        DatabaseError(const QSqlError &dbError) throw() : m_dbError(new QSqlError(dbError)) {}
-    };
-
-    void processAttributes(){
-        QCommandLineParser parser;
-        parser.addHelpOption();
-        parser.addVersionOption();
-
-        QCommandLineOption initDatabase
-                = QCommandLineOption("init-db",
-                                     QCoreApplication::translate("command-line-opt",
-                                                                 "initialize SQLite database in specified <file>"),
-                                     QCoreApplication::translate("command-line-opt", "filename"));
-        parser.addOption(initDatabase);
-
-        parser.process(*qApp);
-
-        if(parser.isSet(initDatabase)){
-            initSQLiteDatabase(parser.value(initDatabase));
-        }
-    }
+/*
+class Currency;
 
 
+class Money
+{
+    //need for preservation of the accuracy in percent operations
+    // e.g.: int(5 [cents] * 0.7) + int(5 * 0.3) = 4 cents, but int(500 * 0.7) + int(500 * 0.3) = 500
+    // CANCELED: need only for calculating, not for store
+    // static const auto m_precisionFactor = 100;
 
 
-    int test(){
-        qApp->setApplicationVersion(A_APP_VERSION_STR);
+    //money represented by smallest part of currency (fractional currency) multiplied by precisionFactor
+    //e.g.: if precisionFactor = 100, 100.32 RUB = 10032 * 100 = 1003200
+    qint64 m_moneyData;
+    Currency m_currency;
 
-        processAttributes();
+public:
+    Money(qint64 main = 0, qint64 fract = 0);
+    Money(const QString &money);
+    Money(double money);
 
-        return 0;
-    }
-}
+};
+*/
 
-
-
+#endif // MONEY_H

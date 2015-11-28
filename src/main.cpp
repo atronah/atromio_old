@@ -1,5 +1,3 @@
-#define A_TEST_MODE
-
 #ifdef A_TEST_MODE
 #include "test.cpp"
 #endif

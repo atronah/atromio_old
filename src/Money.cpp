@@ -30,72 +30,29 @@
 **  <http://www.gnu.org/licenses/>.)
 **************************************************************************/
 /*
-  File   :
-  Created: 7/22/2015
-  Reason : for test code
+  File   : Money.cpp
+  Created: 7/24/2015
+  Reason : for money types
   Product: atromio
   Author : atronah
 
 */
 
+#include "include/Money.h"
+#include "Currency.h"
+/*
 
-#include <iostream>
+QMap<QString, QSharedPointer<Currency> > Currency::m_currencyMap = QMap<QString, QSharedPointer<Currency> >();
 
-#include <QCommandLineParser>
-#include <QtSql/QSqlDatabase>
-#include <QSharedPointer>
-#include <QtSql/QSqlError>
-#include <QtSql/QSqlQuery>
-#include <QFileInfo>
-#include <QTextStream>
-#include <QDebug>
-#include "Money.h"
-
-namespace test{
-
-    class SimpleException{
-        const QString m_message;
-    public:
-        SimpleException(const QString &message) throw() : m_message(message) {}
-        const QString & message() const {return m_message;}
-    };
-
-    class DatabaseError{
-        QSharedPointer<QSqlError> m_dbError;
-    public:
-        DatabaseError(const QSqlError &dbError) throw() : m_dbError(new QSqlError(dbError)) {}
-    };
-
-    void processAttributes(){
-        QCommandLineParser parser;
-        parser.addHelpOption();
-        parser.addVersionOption();
-
-        QCommandLineOption initDatabase
-                = QCommandLineOption("init-db",
-                                     QCoreApplication::translate("command-line-opt",
-                                                                 "initialize SQLite database in specified <file>"),
-                                     QCoreApplication::translate("command-line-opt", "filename"));
-        parser.addOption(initDatabase);
-
-        parser.process(*qApp);
-
-        if(parser.isSet(initDatabase)){
-            initSQLiteDatabase(parser.value(initDatabase));
-        }
+const Currency& Currency::fromISO4217(const QString &code){
+    if (!m_currencyMap.contains(code)){
+        m_currencyMap[code] = QSharedPointer<Currency>(new Currency(code));
     }
-
-
-
-
-    int test(){
-        qApp->setApplicationVersion(A_APP_VERSION_STR);
-
-        processAttributes();
-
-        return 0;
-    }
+    return *m_currencyMap[code];
 }
 
+Money::Money()
+{
 
-
+}
+*/

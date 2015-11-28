@@ -3,12 +3,12 @@
 **
 **  This file is part of the  program.
 **
-**  atromio is free software: you can redistribute it and/or modify
+**   is free software: you can redistribute it and/or modify
 **  it under the terms of the GNU Lesser General Public License as published by
 **  the Free Software Foundation, either version 3 of the License, or
 **  (at your option) any later version.
 **
-**  atromio is distributed in the hope that it will be useful,
+**   is distributed in the hope that it will be useful,
 **  but WITHOUT ANY WARRANTY; without even the implied warranty of
 **  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 **  GNU Lesser General Public License for more details.
@@ -31,71 +31,57 @@
 **************************************************************************/
 /*
   File   :
-  Created: 7/22/2015
-  Reason : for test code
+  Created: 9/7/2015
+  Reason : implementation currency logic
   Product: atromio
   Author : atronah
+*/
 
+#ifndef CURRENCY_H
+#define CURRENCY_H
+
+/*
+class Currency{
+    static QMap<QString, QSharedPointer<Currency> > m_currencyMap;
+
+    // size of fractional unit of currency (e.g., number of cents in dollar for USD)
+    qint16 m_fractSize;
+
+    // code by ISO 4217 (USD, RUR, EUR, etc)
+    const QString m_iso4217;
+
+
+
+public:
+    //! make instance by ISO 4217 code
+    static const Currency& fromISO4217(const QString & code);
+
+    //!
+    QString code() const { return m_iso4217; }
+    qint16 fractSize() const { return m_fractSize; }
+
+    ~Currency(){
+        qDebug() << "Currency " << m_iso4217 << " destroyed";
+    }
+
+private:
+    Currency() : m_iso4217("default"), m_fractSize(0){qDebug() << "def constr";}
+    Currency(const Currency &other) : m_fractSize(other.m_fractSize), m_iso4217(other.m_iso4217) {qDebug() << "copy constr";}
+    Currency(const QString & code) : m_fractSize(100), m_iso4217(code) {qDebug() << "constr by code";}
+    Currency& operator=(Currency &other) {qDebug() << "oper ="; this->m_fractSize = other.m_fractSize; return *this;}
+};
+
+namespace test{
+    void testCurrency(){
+
+        const Currency &c = Currency::fromISO4217("test");
+        qDebug() << c.code();
+        const Currency &c2 = Currency::fromISO4217("test");
+        qDebug() << c2.code();
+
+    }
+}
 */
 
 
-#include <iostream>
-
-#include <QCommandLineParser>
-#include <QtSql/QSqlDatabase>
-#include <QSharedPointer>
-#include <QtSql/QSqlError>
-#include <QtSql/QSqlQuery>
-#include <QFileInfo>
-#include <QTextStream>
-#include <QDebug>
-#include "Money.h"
-
-namespace test{
-
-    class SimpleException{
-        const QString m_message;
-    public:
-        SimpleException(const QString &message) throw() : m_message(message) {}
-        const QString & message() const {return m_message;}
-    };
-
-    class DatabaseError{
-        QSharedPointer<QSqlError> m_dbError;
-    public:
-        DatabaseError(const QSqlError &dbError) throw() : m_dbError(new QSqlError(dbError)) {}
-    };
-
-    void processAttributes(){
-        QCommandLineParser parser;
-        parser.addHelpOption();
-        parser.addVersionOption();
-
-        QCommandLineOption initDatabase
-                = QCommandLineOption("init-db",
-                                     QCoreApplication::translate("command-line-opt",
-                                                                 "initialize SQLite database in specified <file>"),
-                                     QCoreApplication::translate("command-line-opt", "filename"));
-        parser.addOption(initDatabase);
-
-        parser.process(*qApp);
-
-        if(parser.isSet(initDatabase)){
-            initSQLiteDatabase(parser.value(initDatabase));
-        }
-    }
-
-
-
-
-    int test(){
-        qApp->setApplicationVersion(A_APP_VERSION_STR);
-
-        processAttributes();
-
-        return 0;
-    }
-}
-
-
-
+#endif // CURRENCY_H
