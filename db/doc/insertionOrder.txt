@@ -1,0 +1,15 @@
+DATABASECHANGELOGLOCK
+Person
+Currency
+AccountType
+Invoice
+Category
+Account
+Unit
+User
+Balance
+Product
+Purchase
+Operation
+DATABASECHANGELOG
+sqlite_sequence

@@ -16,7 +16,7 @@ while [[ $# -gt 1 ]]
     done
 
 if [ -f "$dbName" ] 
-    then liquibase --classpath=/usr/share/java/liquibase/sqlite-jdbc-3.8.11.2.jar --driver=org.sqlite.JDBC --url="jdbc:sqlite:$dbName" --logLevel=$logLevel --changeLogFile=$changelog $@
+    then liquibase --classpath=./tools/sqlite-jdbc-3.8.11.2.jar --driver=org.sqlite.JDBC --url="jdbc:sqlite:$dbName" --logLevel=$logLevel --changeLogFile=$changelog $@
 else echo no file $dbName
 fi
 

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="../clear.db" type="SQLite - 3.8.11">
+   <tables>
+      <table name="Account" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="10" id="-1" name="id" nullable="false" remarks="" size="2000000000" type="INTEGER">
+            <child column="account_id" foreignKey="" implied="false" onDeleteCascade="false" table="Balance"/>
+            <child column="account_id" foreignKey="" implied="false" onDeleteCascade="false" table="Operation"/>
+            <parent column="ID" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="DATABASECHANGELOGLOCK"/>
+         </column>
+         <column autoUpdated="false" defaultValue="current_timestamp" digits="10" id="0" name="created" nullable="false" remarks="" size="2000000000" type="TEXT"/>
+         <column autoUpdated="false" digits="10" id="1" name="opened" nullable="true" remarks="" size="2000000000" type="TEXT"/>
+         <column autoUpdated="false" digits="10" id="2" name="closed" nullable="true" remarks="" size="2000000000" type="TEXT"/>
+         <column autoUpdated="false" digits="10" id="3" name="name" nullable="false" remarks="" size="2000000000" type="VARCHAR(64)"/>
+         <column autoUpdated="false" defaultValue="''" digits="10" id="4" name="description" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)"/>
+         <column autoUpdated="false" digits="10" id="5" name="type_id" nullable="false" remarks="" size="2000000000" type="INTEGER">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="false" table="AccountType"/>
+         </column>
+         <column autoUpdated="false" digits="10" id="6" name="owner_id" nullable="false" remarks="" size="2000000000" type="INTEGER">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="false" table="Person"/>
+         </column>
+      </table>
+      <table name="AccountType" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="10" id="-1" name="id" nullable="false" remarks="" size="2000000000" type="INTEGER">
+            <child column="type_id" foreignKey="" implied="false" onDeleteCascade="false" table="Account"/>
+            <parent column="ID" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="DATABASECHANGELOGLOCK"/>
+         </column>
+         <column autoUpdated="false" digits="10" id="0" name="name" nullable="false" remarks="" size="2000000000" type="VARCHAR(64)"/>
+         <column autoUpdated="false" defaultValue="0" digits="10" id="1" name="isCash" nullable="false" remarks="" size="2000000000" type="SMALLINT"/>
+      </table>
+      <table name="Balance" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="10" id="-1" name="id" nullable="false" remarks="" size="2000000000" type="INTEGER">
+            <parent column="ID" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="DATABASECHANGELOGLOCK"/>
+         </column>
+         <column autoUpdated="false" digits="10" id="0" name="account_id" nullable="false" remarks="" size="2000000000" type="INTEGER">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="false" table="Account"/>
+         </column>
+         <column autoUpdated="false" digits="10" id="1" name="checked" nullable="false" remarks="" size="2000000000" type="TEXT"/>
+         <column autoUpdated="false" digits="10" id="2" name="amount" nullable="false" remarks="" size="2000000000" type="BIGINT"/>
+         <column autoUpdated="false" digits="10" id="3" name="currency_id" nullable="true" remarks="" size="2000000000" type="INTEGER">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="false" table="Currency"/>
+         </column>
+      </table>
+      <table name="Category" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="10" id="-1" name="id" nullable="false" remarks="" size="2000000000" type="INTEGER">
+            <child column="parent_id" foreignKey="" implied="false" onDeleteCascade="false" table="Category"/>
+            <child column="category_id" foreignKey="" implied="false" onDeleteCascade="false" table="Product"/>
+            <parent column="ID" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="DATABASECHANGELOGLOCK"/>
+         </column>
+         <column autoUpdated="false" defaultValue="0" digits="10" id="0" name="type" nullable="false" remarks="" size="2000000000" type="SMALLINT"/>
+         <column autoUpdated="false" digits="10" id="1" name="name" nullable="false" remarks="" size="2000000000" type="VARCHAR(64)"/>
+         <column autoUpdated="false" digits="10" id="2" name="parent_id" nullable="true" remarks="" size="2000000000" type="INTEGER">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="false" table="Category"/>
+         </column>
+      </table>
+      <table name="Currency" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="10" id="-1" name="id" nullable="false" remarks="" size="2000000000" type="INTEGER">
+            <child column="currency_id" foreignKey="" implied="false" onDeleteCascade="false" table="Balance"/>
+            <child column="currency_id" foreignKey="" implied="false" onDeleteCascade="false" table="Invoice"/>
+            <child column="currency_id" foreignKey="" implied="false" onDeleteCascade="false" table="Operation"/>
+            <parent column="ID" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="DATABASECHANGELOGLOCK"/>
+         </column>
+         <column autoUpdated="false" digits="10" id="0" name="code" nullable="false" remarks="" size="2000000000" type="VARCHAR(3)"/>
+         <column autoUpdated="false" defaultValue="0" digits="10" id="1" name="idx" nullable="false" remarks="" size="2000000000" type="SMALLINT"/>
+         <column autoUpdated="false" digits="10" id="2" name="name" nullable="false" remarks="" size="2000000000" type="VARCHAR(64)"/>
+         <column autoUpdated="false" digits="10" id="3" name="symbol" nullable="false" remarks="" size="2000000000" type="VARCHAR(1)"/>
+         <column autoUpdated="false" defaultValue="2" digits="10" id="4" name="fractionSize" nullable="false" remarks="" size="2000000000" type="SMALLINT"/>
+         <index name="sqlite_autoindex_Currency_1" unique="true">
+            <column ascending="true" name="code"/>
+         </index>
+         <index name="sqlite_autoindex_Currency_2" unique="true">
+            <column ascending="true" name="symbol"/>
+         </index>
+      </table>
+      <table name="DATABASECHANGELOG" numRows="7" remarks="" type="TABLE">
+         <column autoUpdated="false" digits="10" id="-1" name="ID" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)"/>
+         <column autoUpdated="false" digits="10" id="0" name="AUTHOR" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)"/>
+         <column autoUpdated="false" digits="10" id="1" name="FILENAME" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)"/>
+         <column autoUpdated="false" digits="10" id="2" name="DATEEXECUTED" nullable="false" remarks="" size="2000000000" type="TEXT"/>
+         <column autoUpdated="false" digits="10" id="3" name="ORDEREXECUTED" nullable="false" remarks="" size="2000000000" type="INTEGER"/>
+         <column autoUpdated="false" digits="10" id="4" name="EXECTYPE" nullable="false" remarks="" size="2000000000" type="VARCHAR(10)"/>
+         <column autoUpdated="false" digits="10" id="5" name="MD5SUM" nullable="true" remarks="" size="2000000000" type="VARCHAR(35)"/>
+         <column autoUpdated="false" digits="10" id="6" name="DESCRIPTION" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)"/>
+         <column autoUpdated="false" digits="10" id="7" name="COMMENTS" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)"/>
+         <column autoUpdated="false" digits="10" id="8" name="TAG" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)"/>
+         <column autoUpdated="false" digits="10" id="9" name="LIQUIBASE" nullable="true" remarks="" size="2000000000" type="VARCHAR(20)"/>
+         <column autoUpdated="false" digits="10" id="10" name="CONTEXTS" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)"/>
+         <column autoUpdated="false" digits="10" id="11" name="LABELS" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)"/>
+      </table>
+      <table name="DATABASECHANGELOGLOCK" numRows="1" remarks="" type="TABLE">
+         <column autoUpdated="false" digits="10" id="-1" name="ID" nullable="false" remarks="" size="2000000000" type="INTEGER">
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="Account"/>
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="AccountType"/>
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="Balance"/>
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="Category"/>
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="Currency"/>
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="Invoice"/>
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="Operation"/>
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="Person"/>
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="Product"/>
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="Purchase"/>
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="Unit"/>
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="User"/>
+         </column>
+         <column autoUpdated="false" digits="10" id="0" name="LOCKED" nullable="false" remarks="" size="2000000000" type="BOOLEAN"/>
+         <column autoUpdated="false" digits="10" id="1" name="LOCKGRANTED" nullable="true" remarks="" size="2000000000" type="TEXT"/>
+         <column autoUpdated="false" digits="10" id="2" name="LOCKEDBY" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)"/>
+         <primaryKey column="ID" sequenceNumberInPK="1"/>
+      </table>
+      <table name="Invoice" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="10" id="-1" name="id" nullable="false" remarks="" size="2000000000" type="INTEGER">
+            <child column="refInvoice_id" foreignKey="" implied="false" onDeleteCascade="false" table="Invoice"/>
+            <child column="invoice_id" foreignKey="" implied="false" onDeleteCascade="false" table="Operation"/>
+            <child column="invoice_id" foreignKey="" implied="false" onDeleteCascade="false" table="Purchase"/>
+            <parent column="ID" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="DATABASECHANGELOGLOCK"/>
+         </column>
+         <column autoUpdated="false" digits="10" id="0" name="created" nullable="false" remarks="" size="2000000000" type="TEXT"/>
+         <column autoUpdated="false" digits="10" id="1" name="completed" nullable="true" remarks="" size="2000000000" type="TEXT"/>
+         <column autoUpdated="false" digits="10" id="2" name="expired" nullable="true" remarks="" size="2000000000" type="TEXT"/>
+         <column autoUpdated="false" defaultValue="0" digits="10" id="3" name="type" nullable="false" remarks="" size="2000000000" type="SMALLINT"/>
+         <column autoUpdated="false" digits="10" id="4" name="name" nullable="false" remarks="" size="2000000000" type="VARCHAR(64)"/>
+         <column autoUpdated="false" digits="10" id="5" name="amount" nullable="false" remarks="" size="2000000000" type="BIGINT"/>
+         <column autoUpdated="false" digits="10" id="6" name="currency_id" nullable="true" remarks="" size="2000000000" type="INTEGER">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="false" table="Currency"/>
+         </column>
+         <column autoUpdated="false" defaultValue="0" digits="10" id="7" name="discount" nullable="false" remarks="" size="2000000000" type="BIGINT"/>
+         <column autoUpdated="false" defaultValue="0" digits="10" id="8" name="tax" nullable="false" remarks="" size="2000000000" type="BIGINT"/>
+         <column autoUpdated="false" defaultValue="''" digits="10" id="9" name="note" nullable="false" remarks="" size="2000000000" type="TEXT"/>
+         <column autoUpdated="false" digits="10" id="10" name="refInvoice_id" nullable="true" remarks="" size="2000000000" type="INTEGER">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="false" table="Invoice"/>
+         </column>
+         <column autoUpdated="false" defaultValue="0" digits="10" id="11" name="refType" nullable="false" remarks="" size="2000000000" type="SMALLINT"/>
+         <column autoUpdated="false" digits="10" id="12" name="supplier_id" nullable="true" remarks="" size="2000000000" type="INTEGER">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="false" table="Person"/>
+         </column>
+         <column autoUpdated="false" digits="10" id="13" name="customer_id" nullable="true" remarks="" size="2000000000" type="INTEGER">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="false" table="Person"/>
+         </column>
+      </table>
+      <table name="Operation" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="10" id="-1" name="id" nullable="false" remarks="" size="2000000000" type="INTEGER">
+            <parent column="ID" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="DATABASECHANGELOGLOCK"/>
+         </column>
+         <column autoUpdated="false" digits="10" id="0" name="account_id" nullable="false" remarks="" size="2000000000" type="INTEGER">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="false" table="Account"/>
+         </column>
+         <column autoUpdated="false" defaultValue="current_timestamp" digits="10" id="1" name="created" nullable="false" remarks="" size="2000000000" type="TEXT"/>
+         <column autoUpdated="false" digits="10" id="2" name="performed" nullable="true" remarks="" size="2000000000" type="TEXT"/>
+         <column autoUpdated="false" digits="10" id="3" name="canceled" nullable="true" remarks="" size="2000000000" type="TEXT"/>
+         <column autoUpdated="false" digits="10" id="4" name="amount" nullable="false" remarks="" size="2000000000" type="BIGINT"/>
+         <column autoUpdated="false" digits="10" id="5" name="currency_id" nullable="false" remarks="" size="2000000000" type="INTEGER">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="false" table="Currency"/>
+         </column>
+         <column autoUpdated="false" defaultValue="0" digits="10" id="6" name="direction" nullable="false" remarks="" size="2000000000" type="SMALLINT"/>
+         <column autoUpdated="false" digits="10" id="7" name="performer_id" nullable="false" remarks="" size="2000000000" type="INTEGER">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="false" table="Person"/>
+         </column>
+         <column autoUpdated="false" digits="10" id="8" name="invoice_id" nullable="true" remarks="" size="2000000000" type="INTEGER">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="false" table="Invoice"/>
+         </column>
+      </table>
+      <table name="Person" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="10" id="-1" name="id" nullable="false" remarks="" size="2000000000" type="INTEGER">
+            <child column="owner_id" foreignKey="" implied="false" onDeleteCascade="false" table="Account"/>
+            <child column="customer_id" foreignKey="" implied="false" onDeleteCascade="false" table="Invoice"/>
+            <child column="supplier_id" foreignKey="" implied="false" onDeleteCascade="false" table="Invoice"/>
+            <child column="performer_id" foreignKey="" implied="false" onDeleteCascade="false" table="Operation"/>
+            <child column="maker_id" foreignKey="" implied="false" onDeleteCascade="false" table="Product"/>
+            <child column="person_id" foreignKey="" implied="false" onDeleteCascade="false" table="User"/>
+            <parent column="ID" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="DATABASECHANGELOGLOCK"/>
+         </column>
+         <column autoUpdated="false" digits="10" id="0" name="shortName" nullable="false" remarks="" size="2000000000" type="VARCHAR(32)"/>
+         <column autoUpdated="false" defaultValue="''" digits="10" id="1" name="fullName" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)"/>
+         <column autoUpdated="false" defaultValue="0" digits="10" id="2" name="type" nullable="false" remarks="" size="2000000000" type="SMALLINT"/>
+      </table>
+      <table name="Product" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="10" id="-1" name="id" nullable="false" remarks="" size="2000000000" type="INTEGER">
+            <parent column="ID" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="DATABASECHANGELOGLOCK"/>
+         </column>
+         <column autoUpdated="false" defaultValue="''" digits="10" id="0" name="code" nullable="false" remarks="" size="2000000000" type="VARCHAR(128)"/>
+         <column autoUpdated="false" digits="10" id="1" name="name" nullable="false" remarks="" size="2000000000" type="VARCHAR(64)"/>
+         <column autoUpdated="false" digits="10" id="2" name="maker_id" nullable="true" remarks="" size="2000000000" type="INTEGER">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="false" table="Person"/>
+         </column>
+         <column autoUpdated="false" digits="10" id="3" name="category_id" nullable="true" remarks="" size="2000000000" type="INTEGER">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="false" table="Category"/>
+         </column>
+      </table>
+      <table name="Purchase" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="10" id="-1" name="id" nullable="false" remarks="" size="2000000000" type="INTEGER">
+            <parent column="ID" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="DATABASECHANGELOGLOCK"/>
+         </column>
+         <column autoUpdated="false" digits="10" id="0" name="invoice_id" nullable="false" remarks="" size="2000000000" type="INTEGER">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="false" table="Invoice"/>
+         </column>
+         <column autoUpdated="false" defaultValue="1.0" digits="10" id="1" name="quantity" nullable="false" remarks="" size="2000000000" type="DECIMAL(15, 5)"/>
+         <column autoUpdated="false" digits="10" id="2" name="unit_id" nullable="true" remarks="" size="2000000000" type="INTEGER">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="false" table="Unit"/>
+         </column>
+         <column autoUpdated="false" digits="10" id="3" name="price" nullable="false" remarks="" size="2000000000" type="BIGINT"/>
+         <column autoUpdated="false" defaultValue="0" digits="10" id="4" name="discount" nullable="false" remarks="" size="2000000000" type="BIGINT"/>
+         <column autoUpdated="false" defaultValue="0" digits="10" id="5" name="tax" nullable="false" remarks="" size="2000000000" type="BIGINT"/>
+         <column autoUpdated="false" defaultValue="0" digits="10" id="6" name="isAproximate" nullable="false" remarks="" size="2000000000" type="SMALLINT"/>
+      </table>
+      <table name="sqlite_sequence" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="false" digits="10" id="-1" name="name" nullable="true" remarks="" size="2000000000" type=""/>
+         <column autoUpdated="false" digits="10" id="0" name="seq" nullable="true" remarks="" size="2000000000" type=""/>
+      </table>
+      <table name="Unit" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="10" id="-1" name="id" nullable="false" remarks="" size="2000000000" type="INTEGER">
+            <child column="unit_id" foreignKey="" implied="false" onDeleteCascade="false" table="Purchase"/>
+            <parent column="ID" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="DATABASECHANGELOGLOCK"/>
+         </column>
+         <column autoUpdated="false" digits="10" id="0" name="designation" nullable="false" remarks="" size="2000000000" type="VARCHAR(8)"/>
+         <column autoUpdated="false" digits="10" id="1" name="name" nullable="false" remarks="" size="2000000000" type="VARCHAR(64)"/>
+         <column autoUpdated="false" digits="10" id="2" name="description" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)"/>
+      </table>
+      <table name="User" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="10" id="-1" name="id" nullable="false" remarks="" size="2000000000" type="INTEGER">
+            <parent column="ID" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="DATABASECHANGELOGLOCK"/>
+         </column>
+         <column autoUpdated="false" digits="10" id="0" name="login" nullable="false" remarks="" size="2000000000" type="VARCHAR(32)"/>
+         <column autoUpdated="false" digits="10" id="1" name="password" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)"/>
+         <column autoUpdated="false" digits="10" id="2" name="person_id" nullable="false" remarks="" size="2000000000" type="INTEGER">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="false" table="Person"/>
+         </column>
+         <index name="sqlite_autoindex_User_1" unique="true">
+            <column ascending="true" name="login"/>
+         </index>
+      </table>
+   </tables>
+</database>
