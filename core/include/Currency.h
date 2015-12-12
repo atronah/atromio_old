@@ -3,12 +3,12 @@
 **
 **  This file is part of the  program.
 **
-**  atromio is free software: you can redistribute it and/or modify
+**   is free software: you can redistribute it and/or modify
 **  it under the terms of the GNU Lesser General Public License as published by
 **  the Free Software Foundation, either version 3 of the License, or
 **  (at your option) any later version.
 **
-**  atromio is distributed in the hope that it will be useful,
+**   is distributed in the hope that it will be useful,
 **  but WITHOUT ANY WARRANTY; without even the implied warranty of
 **  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 **  GNU Lesser General Public License for more details.
@@ -31,71 +31,55 @@
 **************************************************************************/
 /*
   File   :
-  Created: 7/22/2015
-  Reason : for test code
+  Created: 9/7/2015
+  Reason : implementation currency logic
   Product: atromio
   Author : atronah
-
 */
 
+#ifndef CURRENCY_H
+#define CURRENCY_H
 
-#include <iostream>
-
-#include <QCommandLineParser>
-#include <QtSql/QSqlDatabase>
-#include <QSharedPointer>
-#include <QtSql/QSqlError>
-#include <QtSql/QSqlQuery>
-#include <QFileInfo>
-#include <QTextStream>
-#include <QDebug>
-#include "Money.h"
-
-namespace test{
-
-    class SimpleException{
-        const QString m_message;
-    public:
-        SimpleException(const QString &message) throw() : m_message(message) {}
-        const QString & message() const {return m_message;}
-    };
-
-    class DatabaseError{
-        QSharedPointer<QSqlError> m_dbError;
-    public:
-        DatabaseError(const QSqlError &dbError) throw() : m_dbError(new QSqlError(dbError)) {}
-    };
-
-    void processAttributes(){
-        QCommandLineParser parser;
-        parser.addHelpOption();
-        parser.addVersionOption();
-
-        QCommandLineOption initDatabase
-                = QCommandLineOption("init-db",
-                                     QCoreApplication::translate("command-line-opt",
-                                                                 "initialize SQLite database in specified <file>"),
-                                     QCoreApplication::translate("command-line-opt", "filename"));
-        parser.addOption(initDatabase);
-
-        parser.process(*qApp);
-
-        if(parser.isSet(initDatabase)){
-            initSQLiteDatabase(parser.value(initDatabase));
-        }
-    }
+#include <QtGlobal>
+#include <QString>
+#include <QMetaType>
 
 
+class Currency{
+public:
+    static const QString &defaultCode;
+    static const QString &defaultName;
+    static const qint16 defaultFractionSize;
 
 
-    int test(){
-        qApp->setApplicationVersion(A_APP_VERSION_STR);
+    //Currency(const QString &code = QString(),
+    //         const QString &name = QString(),
+    //         qint16 fractionSize = 2);
 
-        processAttributes();
+    Currency(const QString &code = QString(),
+             const QString &name = QString(),
+             qint16 fractionSize = -1);
 
-        return 0;
-    }
-}
+    QString code() const { return m_code; }
+    QString name() const { return m_name; }
+    qint16 fractionSize() const { return m_fractionSize; }
+
+    virtual ~Currency(){}
+
+private:
+    // code by ISO 4217 (USD, RUR, EUR, etc)
+    const QString m_code;
+    // display name
+    const QString m_name;
+    // size of fractional unit of currency (e.g., number of cents in dollar for USD)
+    qint16 m_fractionSize;
+
+};
+
+Q_DECLARE_METATYPE(Currency)
+
+bool operator==(const Currency &, const Currency &);
+bool operator!=(const Currency &, const Currency &);
 
 
-
+#endif // CURRENCY_H

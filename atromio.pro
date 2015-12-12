@@ -1,31 +1,14 @@
-TEMPLATE = app
-TARGET = atromio
+TEMPLATE = subdirs
 
-QT += qml quick widgets core sql
+CONFIG += ordered
 
-CONFIG += console c++11
+SUBDIRS = core app
 
-VERSION = 0.0.1
+#CONFIG(debug, debug|release) {
+#    SUBDIRS += tests
+#}
 
-DEFINES = A_APP_VERSION_STR=\\\"$$VERSION\\\" A_TEST_MODE
+app.depends = core
+#tests.depends = core
 
-SOURCES += \
-    src/main.cpp \
-    src/test.cpp \
-    src/Money.cpp \
-    src/Currency.cpp
-
-RESOURCES += qml.qrc
-INCLUDEPATH += include
-
-
-# Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH =
-
-# Default rules for deployment.
-include(deployment.pri)
-
-HEADERS += \
-    include/Currency.h \
-    include/Money.h
-
+#DISTFILES += README LICENSE

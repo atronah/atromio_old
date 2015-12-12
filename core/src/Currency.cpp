@@ -3,12 +3,12 @@
 **
 **  This file is part of the  program.
 **
-**  atromio is free software: you can redistribute it and/or modify
+**   is free software: you can redistribute it and/or modify
 **  it under the terms of the GNU Lesser General Public License as published by
 **  the Free Software Foundation, either version 3 of the License, or
 **  (at your option) any later version.
 **
-**  atromio is distributed in the hope that it will be useful,
+**   is distributed in the hope that it will be useful,
 **  but WITHOUT ANY WARRANTY; without even the implied warranty of
 **  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 **  GNU Lesser General Public License for more details.
@@ -30,44 +30,41 @@
 **  <http://www.gnu.org/licenses/>.)
 **************************************************************************/
 /*
-  File   : Money.h
-  Created: 7/24/2015
-  Reason : for currency types
-  Product: atromio
+  File   :
+  Created: 9/7/2015
+  Reason :
+  Product: ,
   Author : atronah
+
+
+
+  Purpose:
+
 */
 
-#ifndef MONEY_H
-#define MONEY_H
+#include <Currency.h>
+#include <QString>
 
-#include <QtGlobal>
-#include <QMap>
-#include <QSharedPointer>
-#include <QDebug>
-
-/*
-class Currency;
+const QString &Currency::defaultCode = "RUR";
+const qint16 Currency::defaultFractionSize = 2;
 
 
-class Money
-{
-    //need for preservation of the accuracy in percent operations
-    // e.g.: int(5 [cents] * 0.7) + int(5 * 0.3) = 4 cents, but int(500 * 0.7) + int(500 * 0.3) = 500
-    // CANCELED: need only for calculating, not for store
-    // static const auto m_precisionFactor = 100;
+Currency::Currency(const QString &code,
+                   const QString &name,
+                   qint16 fractionSize)
+    : m_code(code.isEmpty() ? Currency::defaultCode.toUpper()
+                            : code.toUpper())
+    , m_name(name.isEmpty() ? m_code
+                            : name)
+    , m_fractionSize(fractionSize < 0 ? Currency::defaultFractionSize
+                                      : fractionSize){
+}
 
 
-    //money represented by smallest part of currency (fractional currency) multiplied by precisionFactor
-    //e.g.: if precisionFactor = 100, 100.32 RUB = 10032 * 100 = 1003200
-    qint64 m_moneyData;
-    Currency m_currency;
+bool operator==(const Currency &left, const Currency &right) {
+    return left.code() == right.code();
+}
 
-public:
-    Money(qint64 main = 0, qint64 fract = 0);
-    Money(const QString &money);
-    Money(double money);
-
-};
-*/
-
-#endif // MONEY_H
+bool operator!=(const Currency &left, const Currency &right) {
+    return !(left.code() == right.code());
+}
