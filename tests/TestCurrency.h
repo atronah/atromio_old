@@ -50,6 +50,8 @@ class TestCurrency : public QObject {
         void constructor();
         
         void eq();
+
+        void others();
 };
 
 DECLARE_TEST(TestCurrency)

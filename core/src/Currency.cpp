@@ -56,8 +56,9 @@ Currency::Currency(const QString &code,
                             : code.toUpper())
     , m_name(name.isEmpty() ? m_code
                             : name)
-    , m_fractionSize(fractionSize < 0 ? Currency::defaultFractionSize
-                                      : fractionSize){
+    , m_fractionSize(fractionSize < 0
+                     || code.isEmpty() ? Currency::defaultFractionSize
+                                       : fractionSize){
 }
 
 

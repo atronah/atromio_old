@@ -51,18 +51,25 @@ public:
     static const QString &defaultName;
     static const qint16 defaultFractionSize;
 
-
-    //Currency(const QString &code = QString(),
-    //         const QString &name = QString(),
-    //         qint16 fractionSize = 2);
-
     Currency(const QString &code = QString(),
              const QString &name = QString(),
              qint16 fractionSize = -1);
 
-    QString code() const { return m_code; }
-    QString name() const { return m_name; }
+    Currency(const char * code)
+        : Currency(QString(code), QString()) {}
+
+    Currency(const QString &code,
+             qint16 fractionSize)
+        : Currency(code, QString(), fractionSize) {}
+
+
+    const QString & code() const { return m_code; }
+    const QString & name() const { return m_name; }
     qint16 fractionSize() const { return m_fractionSize; }
+    inline qint32 fractionCount() const {
+        qint32 count = 1;
+        for(auto i=m_fractionSize; i > 0; count *= 10,--i);
+        return count; }
 
     virtual ~Currency(){}
 

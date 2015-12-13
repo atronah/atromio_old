@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    
+    <changeSet id="RUR" author="atronah">
+        <preConditions>
+            <sqlCheck expectedResult="0">
+                select count(*) 
+                from Currency 
+                where upper(code) = 'RUR'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="Currency">
+            <column name="code">RUR</column>
+            <column name="idx">0</column>
+            <column name="name">Российский рубль</column>
+            <column name="symbol">₽</column>
+            <column name="fractionSize">2</column>
+        </insert>
+    </changeSet>
+    <changeSet id="USD" author="atronah">
+        <preConditions>
+            <sqlCheck expectedResult="0">
+                select count(*) 
+                from Currency 
+                where upper(code) = 'USD'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="Currency">
+            <column name="code">USD</column>
+            <column name="idx">1</column>
+            <column name="name">Доллар США</column>
+            <column name="symbol">$</column>
+            <column name="fractionSize">2</column>
+        </insert>
+    </changeSet>
+    <changeSet id="EUR" author="atronah">
+        <preConditions>
+            <sqlCheck expectedResult="0">
+                select count(*) 
+                from Currency 
+                where upper(code) = 'EUR'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="Currency">
+            <column name="code">EUR</column>
+            <column name="idx">2</column>
+            <column name="name">Евро</column>
+            <column name="symbol">€</column>
+            <column name="fractionSize">2</column>
+        </insert>
+    </changeSet>
+    <changeSet id="TRY" author="atronah">
+        <preConditions>
+            <sqlCheck expectedResult="0">
+                select count(*) 
+                from Currency 
+                where upper(code) = 'TRY'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="Currency">
+            <column name="code">TRY</column>
+            <column name="idx">3</column>
+            <column name="name">Турецкая лира</column>
+            <column name="symbol">₺</column>
+            <column name="fractionSize">2</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
