@@ -46,19 +46,26 @@ public:
     Money& operator =(const Money&);
     Money operator +(const Money&) const;
     Money operator -(const Money&) const;
-    Money operator *(const Money&) const;
-    Money operator /(const Money&) const;
+    Money operator *(double) const;
+    Money operator *(qint64) const;
+    Money operator *(qint32 factor) const { return *this * (qint64)factor; }
+    Money operator /(double) const;
+    Money operator /(qint64) const;
+    Money operator /(qint32 denom) const { return *this / (qint64)denom; }
 
 
 protected:
-    qint64 raw() const {return m_raw; }
-
     static qint16 m_rawFactor;
+
+    qint64 raw() const {return m_raw; }
 
 private:
     const Currency m_currency;
     qint64 m_raw;
     bool m_valid;
+
+    qint64 normalized() const;
+
 };
 
 

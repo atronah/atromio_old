@@ -54,16 +54,16 @@ void TestMoney::constructor_data(){
             << Currency("tst")
             << 1ll
             << 234;
-//    QTest::newRow("by fractional unit/default currency")
-//            << Money(123499, Currency(), Money::FractionalUnit)
-//            << Currency()
-//            << 1234ll
-//            << 99;
-//    QTest::newRow("by fractional unit/currency with fractSize=5")
-//            << Money(1234997667, Currency("tst", 5), Money::FractionalUnit)
-//            << Currency("tst")
-//            << 12349ll
-//            << 97667;
+    QTest::newRow("by fractional unit/default currency")
+            << Money(123499, Currency(), Money::FractionalUnit)
+            << Currency()
+            << 1234ll
+            << 99;
+    QTest::newRow("by fractional unit/currency with fractSize=5")
+            << Money(1234997667, Currency("tst", 5), Money::FractionalUnit)
+            << Currency("tst")
+            << 12349ll
+            << 97667;
 }
 
 void TestMoney::constructor(){
@@ -106,18 +106,12 @@ void TestMoney::arithmetic(){
     QCOMPARE(Money(2) + 34.22f, Money(36.22));
 
     QVERIFY((Money(0) - 100) == -100);
-#ifdef A_TEST_DEL
-    qWarning() << (Money(0) - 100).integral();
-    qWarning() << (Money(0) - 100).fractional();
-    qWarning() << Money(-100).integral();
-    qWarning() << Money(-100).fractional();
-#endif
-//    QCOMPARE(Money(3) - 7, Money(-400, Currency(), Money::FractionalUnit));
-//    QCOMPARE(Money(173) - 12.346, Money(160.66));
+    QCOMPARE(Money(3) - 7, Money(-400, Currency(), Money::FractionalUnit));
+    QCOMPARE(Money(173) - 12.346, Money(160.66));
 
-//    QCOMPARE((Money(7) / Money(3)) * Money(3), Money(7));
-//    QCOMPARE((Money(11) / Money(7)), Money(1.57));
-//    QCOMPARE(((Money(17.88) / Money(5) / Money(3)) * 5) * 3, Money(17.88));
+    QCOMPARE((Money(7) / 3) * 3, Money(7));
+    QCOMPARE((Money(11) / 7), Money(1.57));
+    QCOMPARE(((Money(-17.88) / 5.0f / 3.0) * 5) * 3, Money(-17.88));
 }
 
 

@@ -14,5 +14,7 @@ HEADERS = include/Currency.h \
 SOURCES = src/Currency.cpp \
     src/Money.cpp
 
+DEFINES += A_TEST_DEL
+
 
 

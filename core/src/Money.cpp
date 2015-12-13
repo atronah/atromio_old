@@ -2,34 +2,41 @@
 #include <Currency.h>
 #include <math.h>
 
-//Money(double amount, Currency currency)
-//    : m_currency(currency)
-//    , m_integral((qint64)amount)
-//    , m_fractional((qint64))
-//{
-//}
+#ifdef A_TEST_DEL
+#include <QDebug>
+#endif
+
 
 qint16 Money::m_rawFactor = 100;
 
 Money::Money(qint64 amount, Currency currency, AmountType amountType)
     : m_currency(currency)
-    , m_raw(amountType == RawData ? amount
-                                  : m_rawFactor * (amountType == MainUnit ? amount
-                                                                            * currency.fractionCount()
-                                                                          : amount))
+    , m_raw((amountType == RawData) ? amount
+                                    : (m_rawFactor * ((amountType == MainUnit)
+                                                     ? (amount * currency.fractionCount())
+                                                     : amount)))
     , m_valid(true){
 }
 
+
+qint64 Money::normalized() const{
+    lldiv_t divResult = lldiv(m_raw, m_rawFactor);
+    return lldiv(m_raw + divResult.rem, m_rawFactor).quot;
+//    return divResult.quot
+//            + ((abs(divResult.rem * 2) > m_rawFactor) ? 1 : 0)
+//                * (m_raw > 0 ? 1 : -1);
+}
+
 double Money::amount() const{
-    return double(div(m_raw, m_rawFactor).quot) / m_currency.fractionCount();
+    return double(normalized()) / m_currency.fractionCount() ;
 }
 
 qint64 Money::integral() const{
-    return div(m_raw, m_rawFactor * m_currency.fractionCount()).quot;
+    return div(normalized(), m_currency.fractionCount()).quot;
 }
 
 qint32 Money::fractional() const{
-    return div(abs(m_raw), m_rawFactor * m_currency.fractionCount()).rem;
+    return div(abs(normalized()), m_currency.fractionCount()).rem;
 }
 
 bool Money::isComparable(const Money &other) const{
@@ -62,18 +69,25 @@ Money Money::operator -(const Money &other) const{
     return *this + Money(-other.raw(), currency(), RawData);
 }
 
-Money Money::operator *(const Money &other) const{
-    if (!isComparable(other)){
-        return Money();
-    }
-    return Money(raw() * other.raw(), currency(), RawData);
+Money Money::operator *(double factor) const{
+    return Money(qint64(raw() * factor), currency(), RawData);
 }
 
-Money Money::operator /(const Money &other) const{
-    if (!isComparable(other)){
-        return Money();
+Money Money::operator *(qint64 factor) const{
+    return Money(qint64(raw() * factor), currency(), RawData);
+}
+
+Money Money::operator /(double denom) const{
+    return Money(qint64(raw() / denom), currency(), RawData);
+}
+
+
+Money Money::operator /(qint64 denom) const{
+    lldiv_t divResult = lldiv(raw(), denom);
+    if (divResult.rem == 0){
+        return Money(divResult.quot, currency(), RawData);
     }
-    return Money(raw() / other.raw(), currency(), RawData);
+    return Money(raw() / denom, currency(), RawData);
 }
 
 bool operator ==(const Money &left, const Money &right){

@@ -14,11 +14,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     #ifdef A_TEST_DEL
-        Money m = -123.45f;
-        QList<Money> l;
-        l << -123.45f;
-        qWarning() << m.integral() << m.fractional();
-        qWarning() << l.at(0).integral() << l.at(0).fractional();
+        qWarning() << lldiv(11234, 100).rem;
     #endif
 
     QQmlApplicationEngine engine;
