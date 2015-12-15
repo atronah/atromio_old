@@ -111,7 +111,7 @@ void TestMoney::arithmetic(){
 
     QCOMPARE((Money(7) / 3) * 3, Money(7));
     QCOMPARE((Money(11) / 7), Money(1.57));
-    QCOMPARE(((Money(-17.88) / 5.0f / 3.0) * 5) * 3, Money(-17.88));
+    QCOMPARE(((Money(-17.88) / 5.0f / 3.0) * -5) * 3, Money(17.88));
 }
 
 
