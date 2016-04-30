@@ -1,0 +1,13 @@
+#!/bin/sh
+
+dbName=$1
+shift 1
+dbType=$1
+
+if [ -f "$dbName" ] 
+    then java -jar schemaSpy_5.0.0.jar -u atronah -t $dbType -db "$dbName" -o $dbType
+else echo no file $dbName
+fi
+
+
+
