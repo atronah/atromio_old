@@ -30,7 +30,7 @@
 **  <http://www.gnu.org/licenses/>.)
 **************************************************************************/
 /*
-  File   :
+  File   : TestCurrency.h
   Created: 12.12.2015
   Reason : testing Currency class
   Product: atromio
