@@ -30,10 +30,10 @@
 **  <http://www.gnu.org/licenses/>.)
 **************************************************************************/
 /*
-  File   :
+  File   : Currency.cpp
   Created: 9/7/2015
   Reason :
-  Product: ,
+  Product: atromio
   Author : atronah
 
 

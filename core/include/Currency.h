@@ -30,7 +30,7 @@
 **  <http://www.gnu.org/licenses/>.)
 **************************************************************************/
 /*
-  File   :
+  File   : Currency.h
   Created: 9/7/2015
   Reason : implementation currency logic
   Product: atromio
