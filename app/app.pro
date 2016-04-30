@@ -10,7 +10,8 @@ CONFIG += console c++11 ordered
 VERSION = 0.0.1
 
 DEFINES += A_APP_VERSION_STR=\\\"$$VERSION\\\" \
-    A_TEST_DEL
+           A_APP_VERSION_DATE_STR=\\\"\\\" \
+           A_TEST_DEL
 
 SOURCES += main.cpp
 
