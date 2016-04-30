@@ -1,3 +1,4 @@
 change version in app.pro
-make init_<type>.sql script for database or clear database file
+make <type>_init.sql script for database and clear sqlite database file
+add tag into liquibase with release version
 make release database docs
