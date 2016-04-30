@@ -20,3 +20,19 @@ RESOURCES += qml.qrc
 DESTDIR = $$top_builddir
 
 QMAKE_SUBSTITUTES = version.info.in
+
+DB_FILES = $${top_srcdir}/db/sqlite/data.db\
+           $${top_srcdir}/db/mysql/mysql_init.sql\
+
+copy_db.input = DB_FILES
+copy_db.output = $${top_builddir}/${QMAKE_FILE_BASE}${QMAKE_FILE_EXT}
+copy_db.commands = ${COPY_FILE} ${QMAKE_FILE_IN} ${QMAKE_FILE_OUT}
+copy_db.CONFIG += no_link target_predeps
+QMAKE_EXTRA_COMPILERS += copy_db
+
+LANG_FILES = $$files($${top_srcdir}/i18n/*.qm)
+copy_lang.input = LANG_FILES
+copy_lang.output = $${top_builddir}/i18n/${QMAKE_FILE_BASE}${QMAKE_FILE_EXT}
+copy_lang.commands = ${COPY_FILE} ${QMAKE_FILE_IN} ${QMAKE_FILE_OUT}
+copy_lang.CONFIG += no_link target_predeps
+QMAKE_EXTRA_COMPILERS += copy_lang
