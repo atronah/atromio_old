@@ -7,4 +7,5 @@ git comments marks:
 [TR] - translate changes
 [MT] - meta data changes (documentation, comments, project settings)
 [DB] - database changes
+[FS] - file structure changes
 
