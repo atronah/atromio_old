@@ -4,7 +4,7 @@ TARGET = run_tests
 
 QT += testlib
 
-#CONFIG += testcase
+CONFIG += testcase
 CONFIG += c++11
 
 HEADERS += TestCurrency.h \
