@@ -1,0 +1,3 @@
+change version in app.pro
+make init_<type>.sql script for database or clear database file
+make release database docs
