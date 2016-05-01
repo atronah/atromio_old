@@ -71,10 +71,14 @@ public:
         : Money(qint64(amount), currency, amountType) {}
 
     Money(double amount, Currency currency = Currency())
-        : Money(qint64(amount * currency.fractionCount()), currency, FractionalUnit){}
+        : Money(qint64(amount * currency.fractionCount()
+                       // add 0.1% of fraction count to fix floating point error
+                       + (amount > 0 ? 0.1 : -0.1)/currency.fractionCount()),
+                currency,
+                FractionalUnit){}
 
     Money(float amount, Currency currency = Currency())
-        : Money(qint64(amount * currency.fractionCount()), currency, FractionalUnit){}
+        : Money((double)amount, currency){}
 
 
     const Currency & currency() const { return m_currency; }
