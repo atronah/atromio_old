@@ -60,10 +60,10 @@ Money::Money(qint64 amount, Currency currency, AmountType amountType)
 
 qint64 Money::normalized() const{
     lldiv_t divResult = lldiv(m_raw, m_rawFactor);
+    // increase amount by 1 if precision part >= 50 (for rawFactor=2)
+    // e.g. 1234551 -> 123.46 because precision part is "51"
+    // but 9873201 -> 987.32 because precision part is "01" < 50
     return lldiv(m_raw + divResult.rem, m_rawFactor).quot;
-//    return divResult.quot
-//            + ((abs(divResult.rem * 2) > m_rawFactor) ? 1 : 0)
-//                * (m_raw > 0 ? 1 : -1);
 }
 
 double Money::amount() const{
