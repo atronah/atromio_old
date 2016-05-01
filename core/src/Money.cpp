@@ -41,11 +41,6 @@
 #include <Currency.h>
 #include <math.h>
 
-#ifdef A_TEST_DEL
-#include <QDebug>
-#endif
-
-
 qint16 Money::m_rawFactor = 100;
 
 Money::Money(qint64 amount, Currency currency, AmountType amountType)

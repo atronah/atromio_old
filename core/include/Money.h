@@ -43,6 +43,10 @@
 #include <QtGlobal>
 #include <Currency.h>
 
+#ifdef A_TEST_DEL
+#include <QDebug>
+#endif
+
 class Money
 {
 public:
