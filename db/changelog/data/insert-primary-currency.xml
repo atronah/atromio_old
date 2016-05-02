@@ -19,7 +19,7 @@
             <column name="idx">0</column>
             <column name="name">Российский рубль</column>
             <column name="symbol">₽</column>
-            <column name="fractionSize">2</column>
+            <column name="fraction_size">2</column>
         </insert>
     </changeSet>
     <changeSet id="USD" author="atronah">
