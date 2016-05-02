@@ -18,7 +18,7 @@
                             referencedColumnNames="id"
                             foreignKeyName="fk_operation_account_id" />
             </column>
-            <column name="created" type="datetime" defaultValue="current_timestamp" remarks="date and time, when operation has been created">
+            <column name="created" type="datetime" defaultValueComputed="current_timestamp" remarks="date and time, when operation has been created">
                 <constraints nullable="false" />
             </column>
             <column name="performed" type="datetime" remarks="date and time, when operation has been performed" />

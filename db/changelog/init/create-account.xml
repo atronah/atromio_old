@@ -23,7 +23,7 @@
             <column name="id" type="integer" autoIncrement="true" remarks="identifier of account">
                 <constraints nullable="false" primaryKey="true" />
             </column>
-            <column name="created" type="datetime" defaultValue="current_timestamp" remarks="date and time, when account has been created">
+            <column name="created" type="datetime" defaultValueComputed="current_timestamp" remarks="date and time, when account has been created">
                 <constraints nullable="false" />
             </column>
             <column name="opened" type="datetime" remarks="date and time, when account has been opened" />
