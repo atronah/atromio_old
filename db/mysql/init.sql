@@ -2,7 +2,7 @@
 --  Update Database Script
 --  *********************************************************************
 --  Change Log: ../changelog/dev-changelog.xml
---  Ran at: 03.05.16 0:19
+--  Ran at: 03.05.16 0:30
 --  Against: client@localhost@jdbc:mysql://localhost/atromio
 --  Liquibase version: 3.4.2
 --  *********************************************************************
@@ -16,7 +16,7 @@ DELETE FROM atromio.DATABASECHANGELOGLOCK;
 INSERT INTO atromio.DATABASECHANGELOGLOCK (ID, LOCKED) VALUES (1, 0);
 
 --  Lock Database
-UPDATE atromio.DATABASECHANGELOGLOCK SET LOCKED = 1, LOCKEDBY = 'A-UB-WIN7 (192.168.116.18)', LOCKGRANTED = '2016-05-03 00:19:02.964' WHERE ID = 1 AND LOCKED = 0;
+UPDATE atromio.DATABASECHANGELOGLOCK SET LOCKED = 1, LOCKEDBY = 'A-UB-WIN7 (192.168.116.18)', LOCKGRANTED = '2016-05-03 00:30:54.210' WHERE ID = 1 AND LOCKED = 0;
 
 --  Create Database Change Log Table
 CREATE TABLE atromio.DATABASECHANGELOG (ID VARCHAR(255) NOT NULL, AUTHOR VARCHAR(255) NOT NULL, FILENAME VARCHAR(255) NOT NULL, DATEEXECUTED datetime NOT NULL, ORDEREXECUTED INT NOT NULL, EXECTYPE VARCHAR(10) NOT NULL, MD5SUM VARCHAR(35) NULL, DESCRIPTION VARCHAR(255) NULL, COMMENTS VARCHAR(255) NULL, TAG VARCHAR(255) NULL, LIQUIBASE VARCHAR(20) NULL, CONTEXTS VARCHAR(255) NULL, LABELS VARCHAR(255) NULL);
@@ -91,9 +91,9 @@ ALTER TABLE atromio.operation COMMENT = 'money operations';
 INSERT INTO atromio.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE) VALUES ('create_operation', 'atronah', '../changelog/init/create-operation.xml', NOW(), 7, '7:89f20e8b4ba79151933d6af7b34b74c8', 'createTable', '', 'EXECUTED', NULL, NULL, '3.4.2');
 
 --  Changeset ../changelog/data/insert-primary-currency.xml::RUR::atronah
-INSERT INTO atromio.currency (code, idx, name, symbol, fractionSize) VALUES ('RUR', '0', 'Российский рубль', '₽', '2');
+INSERT INTO atromio.currency (code, idx, name, symbol, fraction_size) VALUES ('RUR', '0', 'Российский рубль', '₽', '2');
 
-INSERT INTO atromio.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE) VALUES ('RUR', 'atronah', '../changelog/data/insert-primary-currency.xml', NOW(), 8, '7:55528a3008b96e5f9b0fb5585853d9ab', 'insert', '', 'EXECUTED', NULL, NULL, '3.4.2');
+INSERT INTO atromio.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE) VALUES ('RUR', 'atronah', '../changelog/data/insert-primary-currency.xml', NOW(), 8, '7:d16923b1ba3e4219850b6ec839b9041e', 'insert', '', 'EXECUTED', NULL, NULL, '3.4.2');
 
 --  Changeset ../changelog/data/insert-primary-currency.xml::USD::atronah
 INSERT INTO atromio.currency (code, idx, name, symbol, fraction_size) VALUES ('USD', '1', 'Доллар США', '$', '2');
