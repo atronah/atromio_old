@@ -6,58 +6,58 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     
-    <changeSet id="createRefbooks" author="atronah">
-        <createTable tableName="Unit" remarks="units for counting (kg, cm, pices and etc)">
-            <column name="id" type="INTEGER" autoIncrement="true" remarks="identifier of unit">
+    <changeSet id="create_refbooks" author="atronah">
+        <createTable tableName="unit" remarks="units for counting (kg, cm, pices and etc)">
+            <column name="id" type="integer" autoIncrement="true" remarks="identifier of unit">
                 <constraints nullable="false" primaryKey="true" />
             </column>
-            <column name="designation" type="VARCHAR(8)" remarks="reduced name of unit">
+            <column name="designation" type="varchar(8)" remarks="reduced name of unit">
                 <constraints nullable="false" />
             </column>
-            <column name="name" type="VARCHAR(64)" remarks="name">
+            <column name="name" type="varchar(64)" remarks="name">
                 <constraints nullable="false" />
             </column>
-            <column name="description" type="VARCHAR(255)" remarks="description of unit">
+            <column name="description" type="varchar(255)" remarks="description of unit">
                 <constraints nullable="false" />
             </column>
         </createTable>
 
-        <createTable tableName="Currency" remarks="money representation">
-            <column name="id" type="INTEGER" autoIncrement="true" remarks="identifier of currency">
+        <createTable tableName="currency" remarks="money representation">
+            <column name="id" type="integer" autoIncrement="true" remarks="identifier of currency">
                 <constraints nullable="false" primaryKey="true" />
             </column>
-            <column name="code" type="VARCHAR(3)" remarks="code by ISO 4217">
+            <column name="code" type="varchar(3)" remarks="code by ISO 4217">
                 <constraints unique="true" nullable="false" />
             </column>
-            <column name="idx" type="SMALLINT" defaultValue="0" remarks="sort index for currencies">
+            <column name="idx" type="smallint" defaultValue="0" remarks="sort index for currencies">
                 <constraints nullable="false" />
             </column>
-            <column name="name" type="VARCHAR(64)" remarks="name of currency">
+            <column name="name" type="varchar(64)" remarks="name of currency">
                 <constraints nullable="false" />
             </column>
-            <column name="symbol" type="VARCHAR(1)" remarks="symbol of currency">
+            <column name="symbol" type="varchar(1)" remarks="symbol of currency">
                 <constraints unique="true" nullable="false" />
             </column>
-            <column name="fractionSize" type="SMALLINT" defaultValue="2" remarks="size of fraction part of currency">
+            <column name="fraction_size" type="smallint" defaultValue="2" remarks="size of fraction part of currency">
                 <constraints nullable="false" />
             </column>
         </createTable>
         
-        <createTable tableName="Category" remarks="category of goods and services">
-            <column name="id" type="INTEGER" autoIncrement="true" remarks="identifier of category">
+        <createTable tableName="category" remarks="category of goods and services">
+            <column name="id" type="integer" autoIncrement="true" remarks="identifier of category">
                 <constraints nullable="false" primaryKey="true" />
             </column>
-            <column name="type" type="SMALLINT" defaultValue="0" remarks="0-goods, 1-service">
+            <column name="type" type="smallint" defaultValue="0" remarks="0-goods, 1-service">
                 <constraints nullable="false" />
             </column>
-            <column name="name" type="VARCHAR(64)" remarks="name of category">
+            <column name="name" type="varchar(64)" remarks="name of category">
                 <constraints nullable="false" />
             </column>
-            <column name="parent_id" type="INTEGER" remarks="parent category {Category}">
+            <column name="parent_id" type="integer" remarks="parent category {category}">
                 <constraints nullable="true" 
-                            referencedTableName="Category"
+                            referencedTableName="category"
                             referencedColumnNames="id"
-                            foreignKeyName="fk_Category_Parent_Category" />
+                            foreignKeyName="fk_category_parent_category" />
             </column>
         </createTable>
     </changeSet>

@@ -6,46 +6,46 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     
-    <changeSet id="createOperation" author="atronah">
-        <createTable tableName="Operation" remarks="money operations">
-            <column name="id" type="INTEGER" autoIncrement="true" remarks="operation identifier">
+    <changeSet id="create_operation" author="atronah">
+        <createTable tableName="operation" remarks="money operations">
+            <column name="id" type="integer" autoIncrement="true" remarks="operation identifier">
                 <constraints nullable="false" primaryKey="true" />
             </column>
             
-            <column name="account_id" type="INTEGER" remarks="money own account {Account}">
+            <column name="account_id" type="integer" remarks="money own account {account}">
                 <constraints nullable="false" 
-                            referencedTableName="Account"
+                            referencedTableName="account"
                             referencedColumnNames="id"
-                            foreignKeyName="fk_Operation_Account_id" />
+                            foreignKeyName="fk_operation_account_id" />
             </column>
-            <column name="created" type="DATETIME" defaultValue="current_timestamp" remarks="date and time, when operation has been created">
+            <column name="created" type="datetime" defaultValue="current_timestamp" remarks="date and time, when operation has been created">
                 <constraints nullable="false" />
             </column>
-            <column name="performed" type="DATETIME" remarks="date and time, when operation has been performed" />
-            <column name="canceled" type="DATETIME" remarks="date and time, when operation has been canceled" />
-            <column name="amount" type="BIGINT" remarks="amount money in operation">
+            <column name="performed" type="datetime" remarks="date and time, when operation has been performed" />
+            <column name="canceled" type="datetime" remarks="date and time, when operation has been canceled" />
+            <column name="amount" type="bigint" remarks="amount money in operation">
                 <constraints nullable="false" />
             </column>
-            <column name="currency_id" type="INTEGER" remarks="currency of operation {Currency}">
+            <column name="currency_id" type="integer" remarks="currency of operation {currency}">
                 <constraints nullable="false" 
-                            referencedTableName="Currency"
+                            referencedTableName="currency"
                             referencedColumnNames="id"
-                            foreignKeyName="fk_Operation_Currency_id" />
+                            foreignKeyName="fk_operation_currency_id" />
             </column>
-            <column name="direction" type="SMALLINT" defaultValue="0" remarks="direction of operation (0 - spending/outcome, 1 - earn/income">
+            <column name="direction" type="smallint" defaultValue="0" remarks="direction of operation (0 - spending/outcome, 1 - earn/income">
                 <constraints nullable="false" />
             </column>
-            <column name="performer_id" type="INTEGER" remarks="person, who performed operation {Person}">
+            <column name="performer_id" type="integer" remarks="person, who performed operation {person}">
                 <constraints nullable="false" 
-                            referencedTableName="Person"
+                            referencedTableName="person"
                             referencedColumnNames="id"
-                            foreignKeyName="fk_Operation_Perform_Person_id" />
+                            foreignKeyName="fk_operation_perform_person_id" />
             </column>
-            <column name="invoice_id" type="INTEGER" remarks="operation invoice {Invoice}">
+            <column name="invoice_id" type="integer" remarks="operation invoice {invoice}">
                 <constraints nullable="true" 
-                            referencedTableName="Invoice"
+                            referencedTableName="invoice"
                             referencedColumnNames="id"
-                            foreignKeyName="fk_Operation_Invoice_id" />
+                            foreignKeyName="fk_operation_invoice_id" />
             </column>
         </createTable>
     </changeSet>

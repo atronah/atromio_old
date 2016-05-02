@@ -6,28 +6,28 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     
-    <changeSet id="createProduct" author="atronah">
-        <createTable tableName="Product" remarks="goods and services, purchased or planned or etc">
-            <column name="id" type="INTEGER" autoIncrement="true" remarks="identifier of product">
+    <changeSet id="create_product" author="atronah">
+        <createTable tableName="product" remarks="goods and services, purchased or planned or etc">
+            <column name="id" type="integer" autoIncrement="true" remarks="identifier of product">
                 <constraints nullable="false" primaryKey="true" />
             </column>
-            <column name="code" type="VARCHAR(128)" defaultValue="" remarks="code of product (e.g. barcode or ISBN)">
+            <column name="code" type="varchar(128)" defaultValue="" remarks="code of product (e.g. barcode or ISBN)">
                 <constraints nullable="false" />
             </column>
-            <column name="name" type="VARCHAR(64)" remarks="name of product" >
+            <column name="name" type="varchar(64)" remarks="name of product" >
                 <constraints nullable="false" />
             </column>
-            <column name="maker_id" type="INTEGER" remarks="product maker {Person}">
+            <column name="maker_id" type="integer" remarks="product maker {person}">
                 <constraints nullable="true" 
                             referencedTableName="Person"
                             referencedColumnNames="id"
                             foreignKeyName="fk_Product_Maker_Person" />
             </column>
-            <column name="category_id" type="INTEGER" remarks="category of product {Category}">
+            <column name="category_id" type="integer" remarks="category of product {category}">
                 <constraints nullable="true" 
-                            referencedTableName="Category"
+                            referencedTableName="category"
                             referencedColumnNames="id"
-                            foreignKeyName="fk_Product_Category" />
+                            foreignKeyName="fk_product_category" />
             </column>
         </createTable>
     </changeSet>

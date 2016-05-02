@@ -6,22 +6,22 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     
-    <changeSet id="createUser" author="atronah">
-        <createTable tableName="User" remarks="user of system and database">
-            <column name="id" type="INTEGER" autoIncrement="true" remarks="user's identifier">
+    <changeSet id="create_user" author="atronah">
+        <createTable tableName="user" remarks="user of system and database">
+            <column name="id" type="integer" autoIncrement="true" remarks="user's identifier">
                 <constraints nullable="false" primaryKey="true" />
             </column>
-            <column name="login" type="VARCHAR(32)" remarks="authentication user's name">
+            <column name="login" type="varchar(32)" remarks="authentication user's name">
                 <constraints unique="true" nullable="false" />
             </column>
-            <column name="password" type="VARCHAR(255)" remarks="hash of user's password">
+            <column name="password" type="varchar(255)" remarks="hash of user's password">
                 <constraints nullable="false" />
             </column>
-            <column name="person_id" type="INTEGER" remarks="referred person">
+            <column name="person_id" type="integer" remarks="referred person">
                 <constraints nullable="false" 
-                            referencedTableName="Person"
+                            referencedTableName="person"
                             referencedColumnNames="id"
-                            foreignKeyName="fk_User_Person" />
+                            foreignKeyName="fk_user_person" />
             </column>
         </createTable>
     </changeSet>

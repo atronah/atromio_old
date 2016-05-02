@@ -6,69 +6,69 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     
-    <changeSet id="createAccount" author="atronah">
-        <createTable tableName="AccountType" remarks="money storage type">
-            <column name="id" type="INTEGER" autoIncrement="true" remarks="identifier of account type">
+    <changeSet id="create_account" author="atronah">
+        <createTable tableName="account_type" remarks="money storage type">
+            <column name="id" type="integer" autoIncrement="true" remarks="identifier of account type">
                 <constraints nullable="false" primaryKey="true" />
             </column>
-            <column name="name" type="VARCHAR(64)" remarks="name of account type">
+            <column name="name" type="varchar(64)" remarks="name of account type">
                 <constraints nullable="false" />
             </column>
-            <column name="isCash" type="SMALLINT" defaultValue="0" remarks="a sign of cash accounts">
+            <column name="is_cash" type="smallint" defaultValue="0" remarks="a sign of cash accounts">
                 <constraints nullable="false" />
             </column>
         </createTable>
             
-        <createTable tableName="Account" remarks="money storage">
-            <column name="id" type="INTEGER" autoIncrement="true" remarks="identifier of account">
+        <createTable tableName="account" remarks="money storage">
+            <column name="id" type="integer" autoIncrement="true" remarks="identifier of account">
                 <constraints nullable="false" primaryKey="true" />
             </column>
-            <column name="created" type="DATETIME" defaultValue="current_timestamp" remarks="date and time, when account has been created">
+            <column name="created" type="datetime" defaultValue="current_timestamp" remarks="date and time, when account has been created">
                 <constraints nullable="false" />
             </column>
-            <column name="opened" type="DATETIME" remarks="date and time, when account has been opened" />
-            <column name="closed" type="DATETIME" remarks="date and time, when account has been closed" />
-            <column name="name" type="VARCHAR(64)" remarks="name of account">
+            <column name="opened" type="datetime" remarks="date and time, when account has been opened" />
+            <column name="closed" type="datetime" remarks="date and time, when account has been closed" />
+            <column name="name" type="varchar(64)" remarks="name of account">
                 <constraints nullable="false" />
             </column>
-            <column name="description" type="VARCHAR(255)" defaultValue="" remarks="description of account">
+            <column name="description" type="varchar(255)" defaultValue="" remarks="description of account">
                 <constraints nullable="false" />
             </column>
-            <column name="type_id" type="INTEGER" remarks="account type {AccountType}">
+            <column name="type_id" type="integer" remarks="account type {account_type}">
                 <constraints nullable="false"
-                            referencedTableName="AccountType"
+                            referencedTableName="account_type"
                             referencedColumnNames="id"
-                            foreignKeyName="fk_Account_Type" />
+                            foreignKeyName="fk_account_type" />
             </column>
-            <column name="owner_id" type="INTEGER" remarks="account owner {Person}">
+            <column name="owner_id" type="integer" remarks="account owner {person}">
                 <constraints nullable="false" 
-                            referencedTableName="Person"
+                            referencedTableName="person"
                             referencedColumnNames="id"
-                            foreignKeyName="fk_Account_Owner_Person" />
+                            foreignKeyName="fk_account_owner_person" />
             </column>
         </createTable>
         
-        <createTable tableName="Balance" remarks="stamp of account balance on date">
-            <column name="id" type="INTEGER" autoIncrement="true" remarks="identifier of balance stamp">
+        <createTable tableName="balance" remarks="stamp of account balance on date">
+            <column name="id" type="integer" autoIncrement="true" remarks="identifier of balance stamp">
                 <constraints nullable="false" primaryKey="true" />
             </column>
-            <column name="account_id" type="INTEGER" remarks="account, which balance stored {Account}">
+            <column name="account_id" type="integer" remarks="account, which balance stored {account}">
                 <constraints nullable="false" 
-                            referencedTableName="Account"
+                            referencedTableName="account"
                             referencedColumnNames="id"
-                            foreignKeyName="fk_Balance_Account" />
+                            foreignKeyName="fk_balance_account" />
             </column>
-            <column name="checked" type="DATETIME" remarks="date and time, when account balance has been checked">
+            <column name="checked" type="datetime" remarks="date and time, when account balance has been checked">
                 <constraints nullable="false" />
             </column>
-            <column name="amount" type="BIGINT" remarks="amount money on account on checked date with specified currency">
+            <column name="amount" type="bigint" remarks="amount money on account on checked date with specified currency">
                 <constraints nullable="false" />
             </column>
-            <column name="currency_id" type="INTEGER" remarks="currency of stamp (null=rubles) {Currency}">
+            <column name="currency_id" type="integer" remarks="currency of stamp (null=rubles) {currency}">
                 <constraints nullable="true" 
-                            referencedTableName="Currency"
+                            referencedTableName="currency"
                             referencedColumnNames="id"
-                            foreignKeyName="fk_Balance_Currency" />
+                            foreignKeyName="fk_balance_currency" />
             </column>
         </createTable>
     </changeSet>
