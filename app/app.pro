@@ -15,7 +15,8 @@ DEFINES += A_APP_VERSION_STR=\\\"$$VERSION\\\" \
 
 SOURCES += main.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+    ../db/init_db.qrc
 
 DESTDIR = $$top_builddir
 

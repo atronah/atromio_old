@@ -16,4 +16,6 @@ SOURCES += TestCurrency.cpp \
 
 DESTDIR = $$top_builddir
 
+RESOURCES += ../db/init_db.qrc
+
 DEFINES += A_TEST_DEL
