@@ -43,6 +43,7 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QFile>
+#include <QTextCodec>
 
 Controller::Controller(){
 }
@@ -64,6 +65,7 @@ bool Controller::init_database(){
             return false;
         }
         QTextStream stream(&scripts);
+        stream.setCodec("UTF-8");
         while (!stream.atEnd()){
             QString line = stream.readLine();
             if (line.startsWith('--') || line.trimmed().isEmpty()){
