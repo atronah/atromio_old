@@ -6,11 +6,11 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     
-    <include file="create-Refbooks.xml" relativeToChangelogFile="true" />
-    <include file="create-Person.xml" relativeToChangelogFile="true" />
-    <include file="create-User.xml" relativeToChangelogFile="true" />
-    <include file="create-Product.xml" relativeToChangelogFile="true" />
-    <include file="create-Invoice.xml" relativeToChangelogFile="true" />
-    <include file="create-Account.xml" relativeToChangelogFile="true" />
-    <include file="create-Operation.xml" relativeToChangelogFile="true" />
+    <include file="create-refbooks.xml" relativeToChangelogFile="true" />
+    <include file="create-person.xml" relativeToChangelogFile="true" />
+    <include file="create-user.xml" relativeToChangelogFile="true" />
+    <include file="create-product.xml" relativeToChangelogFile="true" />
+    <include file="create-invoice.xml" relativeToChangelogFile="true" />
+    <include file="create-account.xml" relativeToChangelogFile="true" />
+    <include file="create-operation.xml" relativeToChangelogFile="true" />
 </databaseChangeLog>
