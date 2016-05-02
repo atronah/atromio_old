@@ -6,9 +6,9 @@ echo '<!DOCTYPE RCC>
 for i in "mysql" "sqlite" 
 do
     pushd "$i"
-    liquibase updateSQL > ${i}_init.sql
+    liquibase updateSQL > init.sql
     popd
-    echo "        <file>${i}/${i}_init.sql</file>" >> init_db.qrc 
+    echo "        <file>${i}/init.sql</file>" >> init_db.qrc 
 done
 
 echo '    </qresource>

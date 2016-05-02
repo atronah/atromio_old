@@ -1,8 +1,7 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/db">
-      <file>mysql/mysql_init.sql</file>
-      <file>sqlite/sqlite_init.sql</file>
-
+        <file>mysql/init.sql</file>
+        <file>sqlite/init.sql</file>
     </qresource>
 </RCC>
