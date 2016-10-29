@@ -4,7 +4,7 @@ TARGET = run_tests
 
 QT += testlib
 
-#CONFIG += testcase
+CONFIG += testcase
 CONFIG += c++11
 
 HEADERS += TestCurrency.h \
@@ -15,5 +15,7 @@ SOURCES += TestCurrency.cpp \
     TestMoney.cpp
 
 DESTDIR = $$top_builddir
+
+RESOURCES += ../db/init_db.qrc
 
 DEFINES += A_TEST_DEL

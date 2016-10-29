@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    
+    <changeSet id="create_operation" author="atronah">
+        <createTable tableName="operation" remarks="money operations">
+            <column name="id" type="integer" autoIncrement="true" remarks="operation identifier">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            
+            <column name="account_id" type="integer" remarks="money own account {account}">
+                <constraints nullable="false" 
+                            referencedTableName="account"
+                            referencedColumnNames="id"
+                            foreignKeyName="fk_operation_account_id" />
+            </column>
+            <column name="created" type="datetime" defaultValueComputed="current_timestamp" remarks="date and time, when operation has been created">
+                <constraints nullable="false" />
+            </column>
+            <column name="performed" type="datetime" remarks="date and time, when operation has been performed" />
+            <column name="canceled" type="datetime" remarks="date and time, when operation has been canceled" />
+            <column name="amount" type="bigint" remarks="amount money in operation">
+                <constraints nullable="false" />
+            </column>
+            <column name="currency_id" type="integer" remarks="currency of operation {currency}">
+                <constraints nullable="false" 
+                            referencedTableName="currency"
+                            referencedColumnNames="id"
+                            foreignKeyName="fk_operation_currency_id" />
+            </column>
+            <column name="direction" type="smallint" defaultValue="0" remarks="direction of operation (0 - spending/outcome, 1 - earn/income">
+                <constraints nullable="false" />
+            </column>
+            <column name="performer_id" type="integer" remarks="person, who performed operation {person}">
+                <constraints nullable="false" 
+                            referencedTableName="person"
+                            referencedColumnNames="id"
+                            foreignKeyName="fk_operation_perform_person_id" />
+            </column>
+            <column name="invoice_id" type="integer" remarks="operation invoice {invoice}">
+                <constraints nullable="true" 
+                            referencedTableName="invoice"
+                            referencedColumnNames="id"
+                            foreignKeyName="fk_operation_invoice_id" />
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

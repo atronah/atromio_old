@@ -1,8 +1,51 @@
+/**************************************************************************
+**  Copyright 2015 atronah.
+**
+**  This file is part of the  program.
+**
+**  atromis is free software: you can redistribute it and/or modify
+**  it under the terms of the GNU Lesser General Public License as published by
+**  the Free Software Foundation, either version 3 of the License, or
+**  (at your option) any later version.
+**
+**  atromis is distributed in the hope that it will be useful,
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**  GNU Lesser General Public License for more details.
+**
+**  You should have received a copy of the GNU Lesser General Public License
+**  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+**
+**  (Это свободная программа: вы можете перераспространять ее и/или изменять
+**  ее на условиях GNU Lesser General Public License в том виде, в каком
+**  она была опубликована Фондом свободного программного обеспечения; либо
+**  версии 3 лицензии, либо (по вашему выбору) любой более поздней версии.
+**
+**  Эта программа распространяется в надежде, что она будет полезной,
+**  но БЕЗО ВСЯКИХ ГАРАНТИЙ; даже без неявной гарантии ТОВАРНОГО ВИДА
+**  или ПРИГОДНОСТИ ДЛЯ ОПРЕДЕЛЕННЫХ ЦЕЛЕЙ. Подробнее см. в GNU Lesser General Public License.
+**
+**  Вы должны были получить копию GNU Lesser General Public License
+**  вместе с этой программой. Если это не так, см.
+**  <http://www.gnu.org/licenses/>.)
+**************************************************************************/
+/*
+  File   : Money.h
+  Created: 13.12.2015
+  Reason : implementation money logic
+  Product: atromio
+  Author : atronah
+*/
+
 #ifndef MONEY_H
 #define MONEY_H
 
 #include <QtGlobal>
 #include <Currency.h>
+
+#ifdef A_TEST_DEL
+#include <QDebug>
+#endif
 
 class Money
 {
@@ -28,10 +71,14 @@ public:
         : Money(qint64(amount), currency, amountType) {}
 
     Money(double amount, Currency currency = Currency())
-        : Money(qint64(amount * currency.fractionCount()), currency, FractionalUnit){}
+        : Money(qint64(amount * currency.fractionCount()
+                       // add 0.1% of fraction count to fix floating point error
+                       + (amount > 0 ? 0.1 : -0.1)/currency.fractionCount()),
+                currency,
+                FractionalUnit){}
 
     Money(float amount, Currency currency = Currency())
-        : Money(qint64(amount * currency.fractionCount()), currency, FractionalUnit){}
+        : Money((double)amount, currency){}
 
 
     const Currency & currency() const { return m_currency; }

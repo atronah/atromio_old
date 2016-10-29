@@ -1,2 +1,4 @@
 *.user
 *.autosave
+untracked/
+**/sqlite/data.db

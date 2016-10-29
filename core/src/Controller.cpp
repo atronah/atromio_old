@@ -1,14 +1,14 @@
 /**************************************************************************
-**  Copyright 2015 atronah.
+**  Copyright 2016 .
 **
 **  This file is part of the  program.
 **
-**  atromis is free software: you can redistribute it and/or modify
+**  atromio is free software: you can redistribute it and/or modify
 **  it under the terms of the GNU Lesser General Public License as published by
 **  the Free Software Foundation, either version 3 of the License, or
 **  (at your option) any later version.
 **
-**  atromis is distributed in the hope that it will be useful,
+**  atromio is distributed in the hope that it will be useful,
 **  but WITHOUT ANY WARRANTY; without even the implied warranty of
 **  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 **  GNU Lesser General Public License for more details.
@@ -30,31 +30,48 @@
 **  <http://www.gnu.org/licenses/>.)
 **************************************************************************/
 /*
-  File   : TestCurrency.h
-  Created: 12.12.2015
-  Reason : testing Currency class
+  File   : src/Controller.cpp
+  Created: 02.05.2016
+  Reason : class for controlling app life
   Product: atromio
   Author : atronah
 */
 
-#ifndef TESTCURRENCY_H
-#define TESTCURRENCY_H
 
-#include <QObject>
-#include <AutoTest.h>
+#include "include/Controller.h"
+#include <QDebug>
+#include <QSqlError>
+#include <QSqlQuery>
+#include <QFile>
+#include <QTextCodec>
 
-class TestCurrency : public QObject {
-    Q_OBJECT
-    private slots:
-        void constructor_data();
-        void constructor();
-        
-        void eq();
+Controller::Controller(){
+}
 
-        void others();
-};
 
-DECLARE_TEST(TestCurrency)
-
-#endif
-
+bool Controller::init_database(){
+    m_db = QSqlDatabase::addDatabase("QSQLITE", "main");
+    m_db.setDatabaseName("data.db");
+    if(!m_db.open()){
+        qWarning() << "cannot open database"
+                   << m_db.lastError().driverText()
+                   << m_db.lastError().databaseText();
+    }
+    QSqlQuery q(m_db);
+    if (!m_db.tables().contains("DATABASECHANGELOG")){
+        QFile scripts(":/db/sqlite/init.sql");
+        if (!scripts.open(QFile::ReadOnly | QFile::Text)){
+            qWarning() << "cannot open script file";
+            return false;
+        }
+        QTextStream stream(&scripts);
+        stream.setCodec("UTF-8");
+        while (!stream.atEnd()){
+            QString line = stream.readLine();
+            if (line.startsWith('--') || line.trimmed().isEmpty()){
+                continue;
+            }
+            q.exec(line);
+        }
+    }
+}

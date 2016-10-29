@@ -1,11 +1,45 @@
+/**************************************************************************
+**  Copyright 2015 atronah.
+**
+**  This file is part of the  program.
+**
+**  atromis is free software: you can redistribute it and/or modify
+**  it under the terms of the GNU Lesser General Public License as published by
+**  the Free Software Foundation, either version 3 of the License, or
+**  (at your option) any later version.
+**
+**  atromis is distributed in the hope that it will be useful,
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**  GNU Lesser General Public License for more details.
+**
+**  You should have received a copy of the GNU Lesser General Public License
+**  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+**
+**  (Это свободная программа: вы можете перераспространять ее и/или изменять
+**  ее на условиях GNU Lesser General Public License в том виде, в каком
+**  она была опубликована Фондом свободного программного обеспечения; либо
+**  версии 3 лицензии, либо (по вашему выбору) любой более поздней версии.
+**
+**  Эта программа распространяется в надежде, что она будет полезной,
+**  но БЕЗО ВСЯКИХ ГАРАНТИЙ; даже без неявной гарантии ТОВАРНОГО ВИДА
+**  или ПРИГОДНОСТИ ДЛЯ ОПРЕДЕЛЕННЫХ ЦЕЛЕЙ. Подробнее см. в GNU Lesser General Public License.
+**
+**  Вы должны были получить копию GNU Lesser General Public License
+**  вместе с этой программой. Если это не так, см.
+**  <http://www.gnu.org/licenses/>.)
+**************************************************************************/
+/*
+  File   : Money.cpp
+  Created: 13.12.2015
+  Reason : implementation money logic
+  Product: atromio
+  Author : atronah
+*/
+
 #include <Money.h>
 #include <Currency.h>
 #include <math.h>
-
-#ifdef A_TEST_DEL
-#include <QDebug>
-#endif
-
 
 qint16 Money::m_rawFactor = 100;
 
@@ -21,10 +55,10 @@ Money::Money(qint64 amount, Currency currency, AmountType amountType)
 
 qint64 Money::normalized() const{
     lldiv_t divResult = lldiv(m_raw, m_rawFactor);
+    // increase amount by 1 if precision part >= 50 (for rawFactor=2)
+    // e.g. 1234551 -> 123.46 because precision part is "51"
+    // but 9873201 -> 987.32 because precision part is "01" < 50
     return lldiv(m_raw + divResult.rem, m_rawFactor).quot;
-//    return divResult.quot
-//            + ((abs(divResult.rem * 2) > m_rawFactor) ? 1 : 0)
-//                * (m_raw > 0 ? 1 : -1);
 }
 
 double Money::amount() const{
