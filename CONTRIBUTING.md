@@ -12,3 +12,12 @@ Old commit messages prefixes:
 - `[DB]` - database changes
 - `[FS]` - file structure changes
 
+Release new version
+-------------------
+### Steps for preparing new release
+- change version in app.pro
+- make <type>_init.sql script for database and clear sqlite database file
+- add tag into liquibase with release version
+- make release database docs
+
+
