@@ -1,0 +1,21 @@
+Purposes
+---------
+- daily expenses 
+    - food
+    - household
+    - self-care
+- leisure
+    - art
+    - travelling
+- gifts
+    - to myself
+    - birthday
+    - holiday
+    - charity
+    - unprompted
+- self-development
+    - sport
+    - programming
+- Housing
+    - rent
+    - home
