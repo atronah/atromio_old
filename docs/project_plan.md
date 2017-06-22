@@ -35,11 +35,15 @@ Stage 3
 	- refbook of participants
 - support discount info
 - debts
-	- borrowing
-	- loaning
-	- common bills
-	- interest rates
-	- duration 
+	- participants
+	- amount
+	- interest rate
+	- time-limit
+	- partially refunds
+	- kind:
+		- borrowing
+		- loaning
+		- common bills 
 	
 
 Stage 4
