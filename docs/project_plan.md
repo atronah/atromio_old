@@ -1,5 +1,6 @@
 # Stage 0
-- - - -
+---------
+
 - accounts 
 	- add (name)
 	- get balance (current, on date)
@@ -11,7 +12,8 @@
 
 
 # Stage 1
-- - - -
+---------
+
 - multi currency support for accounts
 	- exchanges
 - import data from budget app
@@ -31,6 +33,7 @@
 
 Stage 3
 -------
+
 - support participants of deal (supplier/customer, payer/payee) in orders
 	- refbook of participants
 - support discount info
@@ -48,12 +51,11 @@ Stage 3
 
 Stage 4
 -------
+
 - auto payments (full auto and as reminder after payment time)
 	- accounting in budget planning (free money)
 - planned outlays
 - reasons: gift, food, traveling. To see unnecessary outlays. May be it can be solved by tags
-
-
 
 
 
